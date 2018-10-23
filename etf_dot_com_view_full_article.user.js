@@ -1,0 +1,22 @@
+// ==UserScript==
+// @name        etf.com view full article
+// @namespace   JacobEgner
+// @version     0.3
+// @description Redirects to full article view for articles at etf.com.
+// @license     CC0-1.0
+// @match       https://www.etf.com/sections/*
+// @run-at      document-start
+// ==/UserScript==
+
+// Only redirect if we're the top window.
+// This condition prevents iframes embedded within etf.com pages from 
+// triggering redirects themselves: we only want the outer window to do that. 
+// It has the side-effect that if etf.com is embedded
+// in a frame on some other website, we'll skip doing the redirect
+
+var noPagingSuffix = "?nopaging=1";
+
+if (window.self === window.top && window.location.href.indexOf(noPagingSuffix) == -1)
+{
+  window.location.replace(window.location.href + noPagingSuffix);
+}
